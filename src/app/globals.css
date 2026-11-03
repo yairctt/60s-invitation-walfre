@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8f3e8;
+  --foreground: #14213d;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #1a1d26;
+  color: #14213d;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+
+body {
+  background-color: #1a1d26;
+  color: #14213d;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Fondo con degradado radial sombreado para las pantallas de PC (laterales del marco móvil) */
+.bg-radial-vignette {
+  background-color: #1a1d26;
+  background-image: radial-gradient(circle at 50% 35%, #2c3240 0%, #12141a 100%);
+}
+
+/* Soporte estricto para prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Animaciones sutiles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Enfoque accesible */
+:focus-visible {
+  outline: 2px solid #14213d;
+  outline-offset: 2px;
+}
