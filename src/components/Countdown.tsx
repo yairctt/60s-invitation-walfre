@@ -11,7 +11,11 @@ interface TimeRemaining {
   status: "upcoming" | "today" | "passed";
 }
 
-export default function Countdown() {
+interface CountdownProps {
+  align?: "left" | "center";
+}
+
+export default function Countdown({ align = "left" }: CountdownProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState<TimeRemaining>({
     days: 0,
@@ -52,13 +56,15 @@ export default function Countdown() {
     return () => clearInterval(interval);
   }, []);
 
+  const justifyClass = align === "left" ? "justify-start" : "justify-center";
+
   if (!mounted) {
     return (
-      <div className="flex items-center justify-center gap-3 sm:gap-4 py-1 text-white">
+      <div className={`flex items-center ${justifyClass} gap-2 sm:gap-3 py-1 text-white`}>
         {["Días", "Horas", "Min", "Seg"].map((label, i) => (
-          <div key={i} className="flex flex-col items-center min-w-[48px]">
-            <span className="text-2xl sm:text-3xl font-serif font-bold text-white drop-shadow-md">--</span>
-            <span className="text-[10px] uppercase tracking-wider text-white/80 font-medium drop-shadow-sm mt-0.5">
+          <div key={i} className="flex flex-col items-center min-w-[42px]">
+            <span className="text-xl sm:text-2xl font-serif font-bold text-white drop-shadow-md">--</span>
+            <span className="text-[9px] uppercase tracking-wider text-white/80 font-medium drop-shadow-sm mt-0.5">
               {label}
             </span>
           </div>
@@ -69,75 +75,71 @@ export default function Countdown() {
 
   if (time.status === "passed") {
     return (
-      <div className="text-center py-1">
-        <p className="text-lg font-serif font-bold text-white drop-shadow-md">Gracias por acompañarnos</p>
+      <div className={align === "left" ? "text-left" : "text-center"}>
+        <p className="text-base font-serif font-bold text-white drop-shadow-md">Gracias por acompañarnos</p>
       </div>
     );
   }
 
   if (time.status === "today") {
     return (
-      <div className="text-center py-1">
-        <p className="text-xl font-serif font-bold text-gold-shimmer drop-shadow-md">¡Hoy es el gran día!</p>
+      <div className={align === "left" ? "text-left" : "text-center"}>
+        <p className="text-lg font-serif font-bold text-gold-shimmer drop-shadow-md">¡Hoy es el gran día!</p>
         <p className="text-xs text-white/90 drop-shadow-sm mt-0.5">
-          A las {EVENT_CONFIG.START_TIME_LABEL} en {EVENT_CONFIG.VENUE_NAME}
+          {EVENT_CONFIG.START_TIME_LABEL} en {EVENT_CONFIG.VENUE_NAME}
         </p>
       </div>
     );
   }
 
-  /* 
-    Diseño minimalista transparente (igual que en la referencia de la boda):
-    Sin cajas blancas opacas que tapen la fotografía.
-  */
   return (
     <div
-      className="flex items-center justify-center gap-2 sm:gap-3 select-none text-white drop-shadow-md"
+      className={`flex items-center ${justifyClass} gap-1.5 sm:gap-2.5 select-none text-white drop-shadow-md`}
       role="timer"
       aria-label="Cuenta regresiva"
     >
       {/* Días */}
-      <div className="flex flex-col items-center min-w-[50px]">
+      <div className="flex flex-col items-center min-w-[44px]">
         <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
           {time.days}
         </span>
-        <span className="text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
           Días
         </span>
       </div>
 
-      <span className="text-xl sm:text-2xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
+      <span className="text-lg sm:text-xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
 
       {/* Horas */}
-      <div className="flex flex-col items-center min-w-[50px]">
+      <div className="flex flex-col items-center min-w-[44px]">
         <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
           {String(time.hours).padStart(2, "0")}
         </span>
-        <span className="text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
           Horas
         </span>
       </div>
 
-      <span className="text-xl sm:text-2xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
+      <span className="text-lg sm:text-xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
 
       {/* Minutos */}
-      <div className="flex flex-col items-center min-w-[50px]">
+      <div className="flex flex-col items-center min-w-[44px]">
         <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
           {String(time.minutes).padStart(2, "0")}
         </span>
-        <span className="text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
           Min
         </span>
       </div>
 
-      <span className="text-xl sm:text-2xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
+      <span className="text-lg sm:text-xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
 
       {/* Segundos */}
-      <div className="flex flex-col items-center min-w-[50px]">
+      <div className="flex flex-col items-center min-w-[44px]">
         <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
           {String(time.seconds).padStart(2, "0")}
         </span>
-        <span className="text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
+        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
           Seg
         </span>
       </div>
