@@ -22,11 +22,11 @@ export default function HomePage() {
 
       {/* 
         Contenedor central: En PC no se expande horizontalmente (máximo 460px), 
-        con sombra suave y sin bordes artificiales de celular.
+        con fondo azul medianoche continuo y homogéneo con el Hero.
       */}
-      <div className="w-full max-w-[460px] min-h-screen bg-cream text-navy shadow-2xl relative overflow-hidden flex flex-col justify-between">
+      <div className="w-full max-w-[460px] min-h-screen bg-[#0e1422] text-cream-light shadow-2xl relative overflow-hidden flex flex-col justify-between">
         <main className="w-full">
-          {/* 1. Hero: Foto de fondo con degradado cinematográfico, tipografía sobre la foto y cuenta regresiva */}
+          {/* 1. Hero: Foto de fondo con cuenta regresiva e información principal */}
           <Hero />
 
           {/* Separador sutil de línea dorada */}
@@ -44,16 +44,16 @@ export default function HomePage() {
           {/* Separador sutil de línea dorada */}
           <SprinklesBand />
 
-          {/* 4. Ubicación: Salón Las Regaderas, Maps y Waze */}
+          {/* 4. Ubicación: Salón Las Regaderas y Google Maps */}
           <LocationCard />
         </main>
 
-        {/* Pie de página dentro de la columna */}
-        <footer className="w-full py-6 text-center text-xs text-navy/60 border-t border-gold/20 bg-white/70">
-          <p className="font-serif tracking-widest uppercase text-navy font-semibold text-[11px]">
+        {/* Pie de página dentro de la columna, armónico con la temática nocturna */}
+        <footer className="w-full py-6 text-center text-xs text-cream-light/60 border-t border-gold/20 bg-[#090d16]">
+          <p className="font-serif tracking-widest uppercase text-gold-shimmer font-semibold text-[11px]">
             {EVENT_CONFIG.HONOREE_NAME} · 60 Años
           </p>
-          <p className="mt-0.5 text-[10px] text-navy/60">
+          <p className="mt-1 text-[10px] text-cream-light/50">
             Chacaltianguis, Veracruz · Celebración Familiar
           </p>
         </footer>
