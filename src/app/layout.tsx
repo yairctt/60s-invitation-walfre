@@ -42,23 +42,23 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Los 60 de Walfre",
+  title: "Los 60 años de Walfre",
   description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
   robots: {
     index: false,
     follow: false,
   },
   openGraph: {
-    title: "Los 60 de Walfre",
+    title: "Los 60 años de Walfre",
     description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
     url: "/",
-    siteName: "Los 60 de Walfre",
+    siteName: "Los 60 años de Walfre",
     locale: "es_MX",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Los 60 de Walfre",
+    title: "Los 60 años de Walfre",
     description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
   },
 };

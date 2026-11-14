@@ -164,7 +164,7 @@ export default function EnvelopeIntro() {
             }`}
           >
             <p className="text-[11px] uppercase tracking-[0.4em] text-gold-shimmer font-medium">Estás invitado</p>
-            <p className="mt-2 font-display italic text-[22px] text-cream-light/90">a celebrar los 60 de Walfre</p>
+            <p className="mt-2 font-display italic text-[22px] text-cream-light/90">a celebrar los 60 años de Walfre</p>
           </div>
 
           {/* Sobre */}

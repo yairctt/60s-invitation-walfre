@@ -4,7 +4,7 @@ import AdminDashboard from "./AdminDashboard";
 import { Lock, ShieldAlert } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Panel de Administración · Los 60 de Walfre",
+  title: "Panel de Administración · Los 60 años de Walfre",
   robots: {
     index: false,
     follow: false,
@@ -55,7 +55,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               Panel Confidencial
             </div>
             <h1 className="text-2xl sm:text-3xl font-serif font-bold text-navy">
-              Confirmaciones · Los 60 de Walfre
+              Confirmaciones · Los 60 años de Walfre
             </h1>
             <p className="text-sm text-navy/70 mt-1 font-medium">
               Registro y control de asistencia para el evento.
