@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Great_Vibes, Playfair_Display, Inter, Cormorant_Garamond } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { EVENT_CONFIG } from "@/config/event";
 
@@ -77,6 +78,7 @@ export default function RootLayout({
     >
       <body className="antialiased bg-cream text-navy selection:bg-gold/25 selection:text-navy">
         {children}
+        <Analytics />
       </body>
     </html>
   );
