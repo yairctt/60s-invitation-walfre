@@ -6,7 +6,6 @@ import RsvpForm from "@/components/RsvpForm";
 import LocationCard from "@/components/LocationCard";
 import EnvelopeIntro from "@/components/EnvelopeIntro";
 import MusicToggle from "@/components/MusicToggle";
-import PhotoBand from "@/components/PhotoBand";
 import { EVENT_CONFIG } from "@/config/event";
 import { MessageCircle } from "lucide-react";
 
@@ -40,7 +39,6 @@ export default function HomePage() {
         <main className="w-full">
           <Hero />
           <Homenaje />
-          <PhotoBand />
           <DateCard />
           <RsvpForm />
           <LocationCard />
