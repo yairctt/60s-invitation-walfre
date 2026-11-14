@@ -27,6 +27,40 @@ export default function MusicToggle() {
     return () => window.removeEventListener(INVITATION_OPENED_EVENT, start);
   }, []);
 
+  // Pausa la música al salir del navegador, cambiar de pestaña o bloquear la pantalla,
+  // y la reanuda al volver solo si estaba sonando antes.
+  useEffect(() => {
+    if (!EVENT_CONFIG.MUSIC_SRC) return;
+
+    let resumeOnReturn = false;
+
+    const pauseIfPlaying = () => {
+      const audio = audioRef.current;
+      if (audio && !audio.paused) {
+        resumeOnReturn = true;
+        audio.pause();
+      }
+    };
+
+    const onVisibility = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (document.hidden) {
+        pauseIfPlaying();
+      } else if (resumeOnReturn) {
+        resumeOnReturn = false;
+        audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pagehide", pauseIfPlaying);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", pauseIfPlaying);
+    };
+  }, []);
+
   if (!EVENT_CONFIG.MUSIC_SRC) return null;
 
   const toggle = () => {
