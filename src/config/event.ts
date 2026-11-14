@@ -4,6 +4,7 @@
  */
 
 export interface EventConfig {
+  SITE_URL: string;
   HONOREE_NAME: string;
   EVENT_DATE_ISO: string;
   START_TIME_LABEL: string;
@@ -21,6 +22,10 @@ export interface EventConfig {
 }
 
 export const EVENT_CONFIG: EventConfig = {
+  // Dirección pública de la invitación (sin "/" al final). La usan las vistas previas de WhatsApp.
+  // Si luego conectas un dominio propio, cámbiala aquí (o define NEXT_PUBLIC_SITE_URL en Vercel).
+  SITE_URL: "https://mis60walfretorres.vercel.app",
+
   // Nombre del homenajeado
   HONOREE_NAME: "Walfre Torres Antolín",
 

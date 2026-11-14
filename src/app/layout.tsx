@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Great_Vibes, Playfair_Display, Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+import { EVENT_CONFIG } from "@/config/event";
 
 const greatVibes = Great_Vibes({
   weight: "400",
@@ -30,15 +31,10 @@ const inter = Inter({
 });
 
 /**
- * Dirección pública base (la usan las vistas previas de WhatsApp para armar la URL absoluta de la imagen).
- * Prioridad: NEXT_PUBLIC_SITE_URL → dominio de producción que Vercel asigna al proyecto → localhost.
- * Si se conecta mis60walfretorres.com como dominio principal en Vercel, se usa automáticamente.
+ * Dirección pública base: con ella se arma la URL absoluta de la imagen de la vista previa de WhatsApp.
+ * Prioridad: NEXT_PUBLIC_SITE_URL (si se define en Vercel) → EVENT_CONFIG.SITE_URL.
  */
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
-  ? process.env.NEXT_PUBLIC_SITE_URL
-  : process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || EVENT_CONFIG.SITE_URL).replace(/\/+$/, "");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
