@@ -31,6 +31,7 @@ const config: Config = {
       fontFamily: {
         script: ["var(--font-script)", "cursive"],
         serif: ["var(--font-playfair)", "Georgia", "serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-inter)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
       },
       boxShadow: {
@@ -41,6 +42,18 @@ const config: Config = {
         "light-glow": "0 0 8px 2px rgba(230, 198, 90, 0.65)",
       },
       keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
+        tick: {
+          "0%": { opacity: "0", transform: "translateY(-40%)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "gold-sweep": {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
         "light-twinkle": {
           "0%, 100%": { opacity: "0.85", transform: "scale(1)" },
           "50%": { opacity: "1", transform: "scale(1.15)" },
@@ -51,6 +64,9 @@ const config: Config = {
         },
       },
       animation: {
+        float: "float 4.5s ease-in-out infinite",
+        tick: "tick 0.35s ease-out",
+        "gold-sweep": "gold-sweep 6s linear infinite",
         "light-twinkle": "light-twinkle 3s ease-in-out infinite",
         "gold-shimmer": "gold-shimmer 4s ease-in-out infinite",
       },

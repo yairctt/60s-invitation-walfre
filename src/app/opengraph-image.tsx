@@ -19,103 +19,89 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#f8f3e8",
+          backgroundColor: "#0a1224",
           backgroundImage:
-            "radial-gradient(circle at 15% 15%, rgba(20, 33, 61, 0.08) 0%, transparent 45%), radial-gradient(circle at 85% 85%, rgba(201, 162, 39, 0.12) 0%, transparent 45%)",
-          color: "#14213d",
+            "radial-gradient(circle at 50% 0%, rgba(201, 162, 39, 0.28) 0%, transparent 55%), radial-gradient(circle at 50% 100%, rgba(31, 49, 88, 0.8) 0%, transparent 60%)",
+          color: "#fdfbf7",
           padding: "40px",
-          border: "16px solid #ffffff",
         }}
       >
-        {/* Monograma W60 con marco dorado de pastel */}
+        {/* Marco dorado fino */}
         <div
           style={{
+            position: "absolute",
+            top: 24,
+            left: 24,
+            right: 24,
+            bottom: 24,
+            border: "2px solid rgba(230, 198, 90, 0.6)",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "150px",
-            height: "150px",
-            borderRadius: "50%",
-            border: "4px solid #c9a227",
-            backgroundColor: "#ffffff",
-            boxShadow: "0 10px 25px rgba(20, 33, 61, 0.12)",
-            marginBottom: "24px",
           }}
-        >
-          <span
-            style={{
-              fontSize: "68px",
-              fontFamily: "serif",
-              fontStyle: "italic",
-              fontWeight: "bold",
-              color: "#c9a227",
-            }}
-          >
-            W
-          </span>
-          <span
-            style={{
-              fontSize: "44px",
-              fontFamily: "serif",
-              fontWeight: "bold",
-              color: "#14213d",
-              marginLeft: "4px",
-            }}
-          >
-            60
-          </span>
-        </div>
+        />
 
-        {/* Subtítulo */}
         <div
           style={{
-            fontSize: "20px",
-            letterSpacing: "6px",
+            fontSize: "22px",
+            letterSpacing: "10px",
             textTransform: "uppercase",
-            color: "#14213d",
-            opacity: 0.75,
+            color: "#e6c65a",
             fontWeight: 600,
-            marginBottom: "8px",
+            marginBottom: "18px",
           }}
         >
-          Celebramos los 60 Años de
+          Celebramos los 60 años de
         </div>
 
-        {/* Título Principal tipo topper */}
         <div
           style={{
-            fontSize: "64px",
+            fontSize: "92px",
             fontFamily: "serif",
             fontWeight: "bold",
             textAlign: "center",
-            color: "#c9a227",
-            marginBottom: "4px",
+            color: "#fdfbf7",
+            lineHeight: 1.05,
           }}
         >
           Walfre Torres Antolín
         </div>
 
-        {/* Fecha y Lugar en cápsula blanca con borde dorado */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "16px",
-            fontSize: "24px",
-            color: "#14213d",
-            backgroundColor: "#ffffff",
-            padding: "12px 36px",
-            borderRadius: "9999px",
-            border: "2px solid #c9a227",
-            boxShadow: "0 6px 16px rgba(20, 33, 61, 0.08)",
-            marginTop: "16px",
+            width: "320px",
+            margin: "30px 0",
+          }}
+        >
+          <div style={{ flex: 1, height: "2px", backgroundColor: "#c9a227", display: "flex" }} />
+          <div
+            style={{
+              width: "14px",
+              height: "14px",
+              backgroundColor: "#e6c65a",
+              transform: "rotate(45deg)",
+              margin: "0 16px",
+              display: "flex",
+            }}
+          />
+          <div style={{ flex: 1, height: "2px", backgroundColor: "#c9a227", display: "flex" }} />
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+            fontSize: "30px",
+            color: "#e6c65a",
             fontWeight: 600,
+            letterSpacing: "2px",
           }}
         >
           <span>30 de diciembre</span>
-          <span style={{ color: "#c9a227" }}>·</span>
+          <span>·</span>
           <span>2:00 p. m.</span>
-          <span style={{ color: "#c9a227" }}>·</span>
+          <span>·</span>
           <span>Chacaltianguis, Veracruz</span>
         </div>
       </div>

@@ -1,9 +1,12 @@
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import Homenaje from "@/components/Homenaje";
+import DateCard from "@/components/DateCard";
 import RsvpForm from "@/components/RsvpForm";
 import LocationCard from "@/components/LocationCard";
-import SprinklesBand from "@/components/SprinklesBand";
 import EnvelopeIntro from "@/components/EnvelopeIntro";
+import MusicToggle from "@/components/MusicToggle";
+import PhotoBand from "@/components/PhotoBand";
 import { EVENT_CONFIG } from "@/config/event";
 import { MessageCircle } from "lucide-react";
 
@@ -15,50 +18,43 @@ export default function HomePage() {
     : "";
 
   return (
-    /* Fondo neutral para pantalla de PC: En monitores no se expande y centra la columna limpiamente */
-    <div className="min-h-screen w-full bg-[#181a20] sm:py-6 sm:px-4 flex items-center justify-center">
-      {/* Animación inicial interactiva: Sobre formal con sello de cera que se abre */}
+    <div className="bg-desktop-stage relative min-h-screen w-full sm:py-8 sm:px-4 flex items-start justify-center">
+      {/* Escenario de escritorio: la misma fotografía, desenfocada, detrás de la columna */}
+      <div className="hidden sm:block fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <Image
+          src="/hero.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          loading="lazy"
+          className="object-cover scale-110 blur-3xl opacity-30"
+        />
+      </div>
+
       <EnvelopeIntro />
 
-      {/* 
-        Contenedor central: En PC no se expande horizontalmente (máximo 460px), 
-        con fondo azul medianoche continuo y homogéneo con el Hero.
-      */}
-      <div className="w-full max-w-[460px] min-h-screen bg-[#0e1422] text-cream-light shadow-2xl relative overflow-hidden flex flex-col justify-between">
+      {/* Columna de invitación: en PC se limita a 460px y se centra como una tarjeta */}
+      <div className="w-full max-w-[460px] min-h-screen bg-cream text-navy sm:shadow-[0_40px_120px_rgba(0,0,0,0.6)] sm:rounded-sm relative overflow-hidden flex flex-col z-10">
+        <MusicToggle />
+
         <main className="w-full">
-          {/* 1. Hero: Foto de fondo con cuenta regresiva e información principal */}
           <Hero />
-
-          {/* Separador sutil de línea dorada */}
-          <SprinklesBand />
-
-          {/* 2. Homenaje: Mensaje de la familia */}
           <Homenaje />
-
-          {/* Separador sutil de línea dorada */}
-          <SprinklesBand />
-
-          {/* 3. RSVP: Formulario de confirmación */}
+          <PhotoBand />
+          <DateCard />
           <RsvpForm />
-
-          {/* Separador sutil de línea dorada */}
-          <SprinklesBand />
-
-          {/* 4. Ubicación: Salón Las Regaderas y Google Maps */}
           <LocationCard />
         </main>
 
-        {/* Pie de página dentro de la columna, armónico con la temática nocturna */}
-        <footer className="w-full py-6 text-center text-xs text-cream-light/60 border-t border-gold/20 bg-[#090d16]">
-          <p className="font-serif tracking-widest uppercase text-gold-shimmer font-semibold text-[11px]">
-            {EVENT_CONFIG.HONOREE_NAME} · 60 Años
+        <footer className="bg-navy-dark px-6 py-10 text-center">
+          <p className="font-display text-lg tracking-[0.2em] uppercase text-cream-light">
+            {EVENT_CONFIG.HONOREE_NAME}
           </p>
-          <p className="mt-1 text-[10px] text-cream-light/50">
-            Chacaltianguis, Veracruz · Celebración Familiar
+          <p className="mt-2 text-[11px] tracking-[0.15em] uppercase text-cream-light/50">
+            30 · 12 · 2026<br />Chacaltianguis, Veracruz
           </p>
         </footer>
 
-        {/* Botón flotante de WhatsApp (si está configurado) */}
         {whatsappUrl && (
           <a
             href={whatsappUrl}

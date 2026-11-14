@@ -6,13 +6,15 @@ interface FadeInProps {
   children: ReactNode;
   className?: string;
   delay?: number;
+  /** Tipo de entrada: desliza hacia arriba (por defecto), solo desvanece o escala suavemente. */
+  variant?: "up" | "fade" | "scale";
 }
 
 /**
  * Componente para animaciones de entrada progresiva con IntersectionObserver.
  * Respeta la preferencia del sistema 'prefers-reduced-motion'.
  */
-export default function FadeIn({ children, className = "", delay = 0 }: FadeInProps) {
+export default function FadeIn({ children, className = "", delay = 0, variant = "up" }: FadeInProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -63,10 +65,12 @@ export default function FadeIn({ children, className = "", delay = 0 }: FadeInPr
       style={{
         transitionDelay: `${delay}ms`,
       }}
-      className={`transition-all duration-700 ease-out transform ${
+      className={`transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] transform ${
         isVisible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-6 pointer-events-none"
+          ? "opacity-100 translate-y-0 scale-100"
+          : `opacity-0 pointer-events-none ${
+              variant === "up" ? "translate-y-8" : variant === "scale" ? "scale-95" : ""
+            }`
       } ${className}`}
     >
       {children}

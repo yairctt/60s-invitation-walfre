@@ -82,7 +82,7 @@ npm run dev
 npm run build
 ```
 
-Visita `http://localhost:3000` para la invitación y `http://localhost:3000/admin?key=walfre60_admin_secreto_2026` para el panel.
+Visita `http://localhost:3000` para la invitación y `http://localhost:3000/admin?key=TU_ADMIN_KEY` para el panel.
 
 ---
 

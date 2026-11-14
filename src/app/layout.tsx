@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Great_Vibes, Playfair_Display, Inter } from "next/font/google";
+import { Great_Vibes, Playfair_Display, Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
 const greatVibes = Great_Vibes({
@@ -15,6 +15,14 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -24,14 +32,14 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mis60walfretorres.com"),
   title: "Los 60 de Walfre",
-  description: "Te invitamos a celebrar con nosotros. Confirma tu asistencia.",
+  description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
   robots: {
     index: false,
     follow: false,
   },
   openGraph: {
     title: "Los 60 de Walfre",
-    description: "Te invitamos a celebrar con nosotros. Confirma tu asistencia.",
+    description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
     url: "https://mis60walfretorres.com",
     siteName: "Los 60 de Walfre",
     locale: "es_MX",
@@ -40,12 +48,12 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Los 60 de Walfre",
-    description: "Te invitamos a celebrar con nosotros. Confirma tu asistencia.",
+    description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8f3e8",
+  themeColor: "#0a1224",
   width: "device-width",
   initialScale: 1,
 };
@@ -58,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="es-MX"
-      className={`${greatVibes.variable} ${playfair.variable} ${inter.variable}`}
+      className={`${greatVibes.variable} ${playfair.variable} ${cormorant.variable} ${inter.variable}`}
     >
       <body className="antialiased bg-cream text-navy selection:bg-gold/25 selection:text-navy">
         {children}

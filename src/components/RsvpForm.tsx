@@ -16,6 +16,7 @@ import {
   Clock,
 } from "lucide-react";
 import FadeIn from "./FadeIn";
+import SectionTitle from "./SectionTitle";
 
 export default function RsvpForm() {
   const [formData, setFormData] = useState<RsvpFormData>({
@@ -109,30 +110,21 @@ export default function RsvpForm() {
     : "";
 
   return (
-    <section id="rsvp" className="relative px-4 py-8 max-w-xl mx-auto scroll-mt-6">
+    <section id="rsvp" className="relative px-6 py-20 scroll-mt-0">
       <FadeIn>
-        {/* Tarjeta de Confirmación en azul medianoche profundo con marco dorado */}
-        <div className="relative rounded-3xl bg-gradient-to-b from-[#161f36]/95 to-[#101728]/95 border border-gold/30 p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.45)] overflow-hidden">
-          {/* Adorno superior dorado brillante */}
-          <div
-            className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent"
-            aria-hidden="true"
-          />
+        <SectionTitle eyebrow="Tu confirmación" title="Confirmar asistencia" className="mb-10" />
+      </FadeIn>
+      <FadeIn delay={150}>
+        <div className="relative rounded-sm bg-white border border-navy/10 p-6 sm:p-8">
 
-          <div className="text-center space-y-2 mb-8 relative z-10">
-            <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold-shimmer font-semibold">
-              Tu Presencia es Importante
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-wide drop-shadow-md">
-              Confirmar Asistencia
-            </h2>
-            <p className="text-sm sm:text-base text-cream-light/80 max-w-sm mx-auto">
+          <div className="text-center space-y-1.5 mb-7 relative z-10">
+            <p className="text-sm text-[#14213d]/70 max-w-sm mx-auto leading-relaxed">
               Por favor confirma antes de acompañarnos para tener todo listo para ti.
             </p>
 
             {EVENT_CONFIG.RSVP_DEADLINE_LABEL && (
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 mt-2 rounded-full bg-gold/15 border border-gold/40 text-xs font-semibold text-gold-shimmer">
-                <Clock className="w-3.5 h-3.5 text-gold-shimmer" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 mt-2 rounded-full bg-gold/10 border border-gold/30 text-xs font-semibold text-gold-dark">
+                <Clock className="w-3.5 h-3.5 text-gold-dark" />
                 <span>Fecha límite: {EVENT_CONFIG.RSVP_DEADLINE_LABEL}</span>
               </div>
             )}
@@ -141,23 +133,23 @@ export default function RsvpForm() {
           {/* Estado de Éxito */}
           {status === "success" ? (
             <div className="py-8 px-4 text-center space-y-4 animate-fadeIn relative z-10">
-              <div className="w-16 h-16 mx-auto rounded-full bg-emerald-950/60 border border-emerald-400 flex items-center justify-center text-emerald-400 shadow-inner">
+              <div className="w-16 h-16 mx-auto rounded-full bg-emerald-50 border border-emerald-400 flex items-center justify-center text-emerald-600 shadow-sm">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h3 className="text-2xl font-serif font-bold text-white">
+              <h3 className="text-2xl font-serif font-bold text-[#14213d]">
                 ¡Confirmación Recibida!
               </h3>
-              <p className="text-cream-light text-sm sm:text-base leading-relaxed">
-                Muchas gracias, <strong className="text-gold-shimmer font-bold">{formData.fullName}</strong>. Hemos
-                anotado tu asistencia con <strong className="text-gold-shimmer font-bold">{formData.guestsCount}</strong>{" "}
+              <p className="text-[#14213d]/85 text-sm sm:text-base leading-relaxed">
+                Muchas gracias, <strong className="text-[#14213d] font-bold">{formData.fullName}</strong>. Hemos
+                anotado tu asistencia con <strong className="text-[#14213d] font-bold">{formData.guestsCount}</strong>{" "}
                 {formData.guestsCount === 1 ? "persona" : "personas"}.
               </p>
-              <p className="text-xs text-cream-light/70 pt-2 font-medium">
+              <p className="text-xs text-[#14213d]/60 pt-2 font-medium">
                 {EVENT_CONFIG.HONOREE_NAME} y su familia se alegrarán mucho de verte.
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="space-y-5 relative z-10">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4 relative z-10">
               {/* Campo Honeypot invisible */}
               <div className="hidden" aria-hidden="true">
                 <label htmlFor="rsvp_fax_code">No llenar este campo:</label>
@@ -175,10 +167,10 @@ export default function RsvpForm() {
               {/* Mensaje de error */}
               {status === "error" && errorMessage && (
                 <div
-                  className="p-3.5 rounded-xl bg-red-950/80 border border-red-500 text-red-200 text-sm flex items-start gap-2.5"
+                  className="p-3.5 rounded-md bg-red-50 border border-red-300 text-red-800 text-sm flex items-start gap-2.5"
                   role="alert"
                 >
-                  <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                  <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                   <span>{errorMessage}</span>
                 </div>
               )}
@@ -187,12 +179,12 @@ export default function RsvpForm() {
               <div>
                 <label
                   htmlFor="fullName"
-                  className="block text-sm font-semibold text-cream-light mb-1.5"
+                  className="block text-xs uppercase tracking-wider font-bold text-[#14213d]/80 mb-1.5"
                 >
-                  Nombre completo <span className="text-gold-shimmer">*</span>
+                  Nombre completo <span className="text-gold-dark">*</span>
                 </label>
                 <div className="relative">
-                  <User className="w-5 h-5 text-gold-shimmer/60 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <User className="w-5 h-5 text-[#14213d]/50 z-10 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     id="fullName"
                     name="fullName"
@@ -201,13 +193,13 @@ export default function RsvpForm() {
                     placeholder="Ej. Juan Pérez González"
                     value={formData.fullName}
                     onChange={handleChange}
-                    className={`w-full min-h-[48px] bg-[#0c1220]/90 border ${
-                      formErrors.fullName ? "border-red-500" : "border-gold/25 focus:border-gold"
-                    } rounded-xl pl-11 pr-4 py-3 text-base text-white placeholder-cream-light/40 focus:outline-none focus:ring-1 focus:ring-gold/50 transition-colors shadow-inner`}
+                    className={`w-full min-h-[48px] bg-white border ${
+                      formErrors.fullName ? "border-red-500" : "border-black/10 focus:border-gold"
+                    } rounded-md pl-11 pr-4 py-3 text-base text-[#14213d] placeholder-[#14213d]/35 focus:outline-none focus:ring-1 focus:ring-gold/30 focus:bg-white transition-all shadow-xs`}
                   />
                 </div>
                 {formErrors.fullName && (
-                  <p className="mt-1 text-xs text-red-400 font-medium">{formErrors.fullName}</p>
+                  <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.fullName}</p>
                 )}
               </div>
 
@@ -215,43 +207,43 @@ export default function RsvpForm() {
               <div>
                 <label
                   htmlFor="guestsCount"
-                  className="block text-sm font-semibold text-cream-light mb-1.5"
+                  className="block text-xs uppercase tracking-wider font-bold text-[#14213d]/80 mb-1.5"
                 >
-                  Número de asistentes <span className="text-gold-shimmer">*</span>
+                  Número de asistentes <span className="text-gold-dark">*</span>
                 </label>
                 <div className="relative">
-                  <Users className="w-5 h-5 text-gold-shimmer/60 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Users className="w-5 h-5 text-[#14213d]/50 z-10 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <select
                     id="guestsCount"
                     name="guestsCount"
                     value={formData.guestsCount}
                     onChange={handleChange}
-                    className={`w-full min-h-[48px] bg-[#0c1220]/90 border ${
-                      formErrors.guestsCount ? "border-red-500" : "border-gold/25 focus:border-gold"
-                    } rounded-xl pl-11 pr-4 py-3 text-base text-white focus:outline-none focus:ring-1 focus:ring-gold/50 transition-colors appearance-none shadow-inner`}
+                    className={`w-full min-h-[48px] bg-white border ${
+                      formErrors.guestsCount ? "border-red-500" : "border-black/10 focus:border-gold"
+                    } rounded-md pl-11 pr-4 py-3 text-base text-[#14213d] focus:outline-none focus:ring-1 focus:ring-gold/30 focus:bg-white transition-all appearance-none shadow-xs`}
                   >
                     {Array.from(
                       { length: EVENT_CONFIG.MAX_GUESTS_PER_RSVP },
                       (_, i) => i + 1
                     ).map((num) => (
-                      <option key={num} value={num} className="bg-[#0c1220] text-white">
+                      <option key={num} value={num} className="bg-white text-[#14213d]">
                         {num} {num === 1 ? "persona (Solo yo)" : `personas en mi grupo`}
                       </option>
                     ))}
                   </select>
                 </div>
                 {formErrors.guestsCount && (
-                  <p className="mt-1 text-xs text-red-400 font-medium">{formErrors.guestsCount}</p>
+                  <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.guestsCount}</p>
                 )}
               </div>
 
               {/* Teléfono opcional */}
               <div>
-                <label htmlFor="phone" className="block text-sm font-semibold text-cream-light mb-1.5">
-                  Teléfono de contacto <span className="text-cream-light/50 text-xs font-normal">(opcional)</span>
+                <label htmlFor="phone" className="block text-xs uppercase tracking-wider font-bold text-[#14213d]/80 mb-1.5">
+                  Teléfono de contacto <span className="text-[#14213d]/40 text-xs font-normal lowercase">(opcional)</span>
                 </label>
                 <div className="relative">
-                  <Phone className="w-5 h-5 text-gold-shimmer/60 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Phone className="w-5 h-5 text-[#14213d]/50 z-10 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     id="phone"
                     name="phone"
@@ -259,25 +251,25 @@ export default function RsvpForm() {
                     placeholder="10 dígitos (Ej. 288 123 4567)"
                     value={formData.phone}
                     onChange={handleChange}
-                    className={`w-full min-h-[48px] bg-[#0c1220]/90 border ${
-                      formErrors.phone ? "border-red-500" : "border-gold/25 focus:border-gold"
-                    } rounded-xl pl-11 pr-4 py-3 text-base text-white placeholder-cream-light/40 focus:outline-none focus:ring-1 focus:ring-gold/50 transition-colors shadow-inner`}
+                    className={`w-full min-h-[48px] bg-white border ${
+                      formErrors.phone ? "border-red-500" : "border-black/10 focus:border-gold"
+                    } rounded-md pl-11 pr-4 py-3 text-base text-[#14213d] placeholder-[#14213d]/35 focus:outline-none focus:ring-1 focus:ring-gold/30 focus:bg-white transition-all shadow-xs`}
                   />
                 </div>
-                {formErrors.phone && <p className="mt-1 text-xs text-red-400 font-medium">{formErrors.phone}</p>}
+                {formErrors.phone && <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.phone}</p>}
               </div>
 
               {/* Mensaje opcional */}
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-semibold text-cream-light mb-1.5"
+                  className="block text-xs uppercase tracking-wider font-bold text-[#14213d]/80 mb-1.5"
                 >
                   Mensaje para Walfre{" "}
-                  <span className="text-cream-light/50 text-xs font-normal">(opcional)</span>
+                  <span className="text-[#14213d]/40 text-xs font-normal lowercase">(opcional)</span>
                 </label>
                 <div className="relative">
-                  <MessageSquare className="w-5 h-5 text-gold-shimmer/60 absolute left-3.5 top-3.5 pointer-events-none" />
+                  <MessageSquare className="w-5 h-5 text-[#14213d]/50 z-10 absolute left-3.5 top-3.5 pointer-events-none" />
                   <textarea
                     id="message"
                     name="message"
@@ -285,31 +277,31 @@ export default function RsvpForm() {
                     placeholder="Escríbele unas palabras o un deseo con cariño..."
                     value={formData.message}
                     onChange={handleChange}
-                    className={`w-full bg-[#0c1220]/90 border ${
-                      formErrors.message ? "border-red-500" : "border-gold/25 focus:border-gold"
-                    } rounded-xl pl-11 pr-4 py-3 text-base text-white placeholder-cream-light/40 focus:outline-none focus:ring-1 focus:ring-gold/50 transition-colors resize-none shadow-inner`}
+                    className={`w-full bg-white border ${
+                      formErrors.message ? "border-red-500" : "border-black/10 focus:border-gold"
+                    } rounded-md pl-11 pr-4 py-3 text-base text-[#14213d] placeholder-[#14213d]/35 focus:outline-none focus:ring-1 focus:ring-gold/30 focus:bg-white transition-all resize-none shadow-xs`}
                   />
                 </div>
                 {formErrors.message && (
-                  <p className="mt-1 text-xs text-red-400 font-medium">{formErrors.message}</p>
+                  <p className="mt-1 text-xs text-red-600 font-medium">{formErrors.message}</p>
                 )}
               </div>
 
-              {/* Botón de Enviar en Dorado Festivo homogéneo con el Hero */}
+              {/* Botón de Enviar en Dorado */}
               <div className="pt-2">
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="w-full min-h-[48px] px-6 py-3.5 rounded-full bg-gold hover:bg-gold-shimmer active:bg-gold-dark text-navy font-bold text-sm uppercase tracking-wider transition-all shadow-lg hover:shadow-gold/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full min-h-[50px] px-6 py-3.5 rounded-sm bg-gold hover:bg-gold-shimmer text-[#0a1120] font-semibold text-[11px] uppercase tracking-[0.2em] transition-colors active:scale-[0.99] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {status === "submitting" ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin text-navy" />
+                      <Loader2 className="w-5 h-5 animate-spin text-[#0a1120]" />
                       <span>Registrando asistencia...</span>
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4 text-navy" />
+                      <Send className="w-4 h-4 text-[#0a1120]" />
                       <span>Enviar confirmación</span>
                     </>
                   )}
@@ -318,8 +310,8 @@ export default function RsvpForm() {
 
               {/* Confirmación WhatsApp opcional */}
               {whatsappUrl && (
-                <div className="pt-3 border-t border-gold/20 text-center">
-                  <p className="text-xs text-cream-light/70 mb-2 font-medium">O si lo prefieres:</p>
+                <div className="pt-3 border-t border-black/5 text-center">
+                  <p className="text-xs text-[#14213d]/60 mb-2 font-medium">O si lo prefieres:</p>
                   <a
                     href={whatsappUrl}
                     target="_blank"

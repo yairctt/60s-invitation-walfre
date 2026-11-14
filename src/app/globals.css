@@ -65,3 +65,9 @@ body {
   outline: 2px solid #14213d;
   outline-offset: 2px;
 }
+
+/* Fondo de escritorio: fotografía desenfocada + viñeta */
+.bg-desktop-stage {
+  background-color: #0a1224;
+  background-image: radial-gradient(circle at 50% 30%, rgba(31, 49, 88, 0.55) 0%, rgba(10, 18, 36, 0.96) 70%);
+}

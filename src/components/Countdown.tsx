@@ -15,6 +15,22 @@ interface CountdownProps {
   align?: "left" | "center";
 }
 
+/** Número que "cae" suavemente al cambiar de valor (la key fuerza el remontaje y la animación). */
+function Tick({ value }: { value: string }) {
+  return (
+    <span key={value} className="inline-block animate-tick">
+      {value}
+    </span>
+  );
+}
+
+const UNITS: { key: keyof Omit<TimeRemaining, "status">; label: string; pad: boolean }[] = [
+  { key: "days", label: "Días", pad: false },
+  { key: "hours", label: "Horas", pad: true },
+  { key: "minutes", label: "Min", pad: true },
+  { key: "seconds", label: "Seg", pad: true },
+];
+
 export default function Countdown({ align = "left" }: CountdownProps) {
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState<TimeRemaining>({
@@ -30,8 +46,7 @@ export default function Countdown({ align = "left" }: CountdownProps) {
 
     const calculateTime = () => {
       const targetTime = new Date(EVENT_CONFIG.EVENT_DATE_ISO).getTime();
-      const now = Date.now();
-      const difference = targetTime - now;
+      const difference = targetTime - Date.now();
 
       if (difference < -24 * 60 * 60 * 1000) {
         setTime({ days: 0, hours: 0, minutes: 0, seconds: 0, status: "passed" });
@@ -43,12 +58,13 @@ export default function Countdown({ align = "left" }: CountdownProps) {
         return;
       }
 
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      setTime({ days, hours, minutes, seconds, status: "upcoming" });
+      setTime({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((difference % (1000 * 60)) / 1000),
+        status: "upcoming",
+      });
     };
 
     calculateTime();
@@ -57,34 +73,20 @@ export default function Countdown({ align = "left" }: CountdownProps) {
   }, []);
 
   const justifyClass = align === "left" ? "justify-start" : "justify-center";
+  const textAlign = align === "left" ? "text-left" : "text-center";
 
-  if (!mounted) {
+  if (time.status === "passed" && mounted) {
     return (
-      <div className={`flex items-center ${justifyClass} gap-2 sm:gap-3 py-1 text-white`}>
-        {["Días", "Horas", "Min", "Seg"].map((label, i) => (
-          <div key={i} className="flex flex-col items-center min-w-[42px]">
-            <span className="text-xl sm:text-2xl font-serif font-bold text-white drop-shadow-md">--</span>
-            <span className="text-[9px] uppercase tracking-wider text-white/80 font-medium drop-shadow-sm mt-0.5">
-              {label}
-            </span>
-          </div>
-        ))}
+      <div className={textAlign}>
+        <p className="text-lg font-display font-semibold text-white drop-shadow-md">Gracias por acompañarnos</p>
       </div>
     );
   }
 
-  if (time.status === "passed") {
+  if (time.status === "today" && mounted) {
     return (
-      <div className={align === "left" ? "text-left" : "text-center"}>
-        <p className="text-base font-serif font-bold text-white drop-shadow-md">Gracias por acompañarnos</p>
-      </div>
-    );
-  }
-
-  if (time.status === "today") {
-    return (
-      <div className={align === "left" ? "text-left" : "text-center"}>
-        <p className="text-lg font-serif font-bold text-gold-shimmer drop-shadow-md">¡Hoy es el gran día!</p>
+      <div className={textAlign}>
+        <p className="text-xl font-display font-semibold text-gold-shimmer drop-shadow-md">¡Hoy es el gran día!</p>
         <p className="text-xs text-white/90 drop-shadow-sm mt-0.5">
           {EVENT_CONFIG.START_TIME_LABEL} en {EVENT_CONFIG.VENUE_NAME}
         </p>
@@ -94,55 +96,31 @@ export default function Countdown({ align = "left" }: CountdownProps) {
 
   return (
     <div
-      className={`flex items-center ${justifyClass} gap-1.5 sm:gap-2.5 select-none text-white drop-shadow-md`}
+      className={`flex items-start ${justifyClass} gap-1 select-none text-white drop-shadow-md`}
       role="timer"
       aria-label="Cuenta regresiva"
     >
-      {/* Días */}
-      <div className="flex flex-col items-center min-w-[44px]">
-        <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
-          {time.days}
-        </span>
-        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
-          Días
-        </span>
-      </div>
-
-      <span className="text-lg sm:text-xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
-
-      {/* Horas */}
-      <div className="flex flex-col items-center min-w-[44px]">
-        <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
-          {String(time.hours).padStart(2, "0")}
-        </span>
-        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
-          Horas
-        </span>
-      </div>
-
-      <span className="text-lg sm:text-xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
-
-      {/* Minutos */}
-      <div className="flex flex-col items-center min-w-[44px]">
-        <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
-          {String(time.minutes).padStart(2, "0")}
-        </span>
-        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
-          Min
-        </span>
-      </div>
-
-      <span className="text-lg sm:text-xl font-serif text-gold-shimmer font-bold -mt-3 drop-shadow-md select-none">:</span>
-
-      {/* Segundos */}
-      <div className="flex flex-col items-center min-w-[44px]">
-        <span className="text-2xl sm:text-3xl font-serif font-bold text-white tabular-nums leading-none drop-shadow-lg">
-          {String(time.seconds).padStart(2, "0")}
-        </span>
-        <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-white/80 font-semibold mt-1 drop-shadow-sm">
-          Seg
-        </span>
-      </div>
+      {UNITS.map((unit, i) => {
+        const raw = time[unit.key];
+        const text = !mounted ? "--" : unit.pad ? String(raw).padStart(2, "0") : String(raw);
+        return (
+          <div key={unit.key} className="flex items-start gap-1">
+            <div className="flex flex-col items-center min-w-[40px]">
+              <span className="text-[28px] font-display font-semibold text-white tabular-nums leading-none drop-shadow-lg">
+                {mounted ? <Tick value={text} /> : text}
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-gold-shimmer font-semibold mt-1.5">
+                {unit.label}
+              </span>
+            </div>
+            {i < UNITS.length - 1 && (
+              <span className="text-lg font-display text-gold-shimmer/80 leading-none pt-1" aria-hidden="true">
+                ·
+              </span>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

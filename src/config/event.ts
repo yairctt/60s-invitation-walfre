@@ -15,6 +15,9 @@ export interface EventConfig {
   MAX_GUESTS_PER_RSVP: number;
   RSVP_DEADLINE_LABEL: string;
   FAMILY_MESSAGE: string;
+  CALENDAR_DURATION_HOURS: number;
+  ARRIVAL_NOTE: string;
+  MUSIC_SRC: string;
 }
 
 export const EVENT_CONFIG: EventConfig = {
@@ -41,6 +44,16 @@ export const EVENT_CONFIG: EventConfig = {
 
   // Fecha límite de confirmación (si está vacío, no se muestra)
   RSVP_DEADLINE_LABEL: "",
+
+  // Duración (en horas) que se reserva en el calendario del invitado al guardar el evento
+  CALENDAR_DURATION_HOURS: 6,
+
+  // Nota opcional bajo el mapa (estacionamiento, referencias, etc.). Si está vacía, no se muestra.
+  ARRIVAL_NOTE: "",
+
+  // Música de fondo opcional. Coloca el archivo en /public (ej. "/musica.mp3").
+  // Si está vacío, el botón de música no se muestra.
+  MUSIC_SRC: "/Asi_Fue_Juanga.mp3",
 
   // Mensaje de la familia
   FAMILY_MESSAGE:
