@@ -29,8 +29,19 @@ const inter = Inter({
   display: "swap",
 });
 
+/**
+ * Dirección pública base (la usan las vistas previas de WhatsApp para armar la URL absoluta de la imagen).
+ * Prioridad: NEXT_PUBLIC_SITE_URL → dominio de producción que Vercel asigna al proyecto → localhost.
+ * Si se conecta mis60walfretorres.com como dominio principal en Vercel, se usa automáticamente.
+ */
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mis60walfretorres.com"),
+  metadataBase: new URL(SITE_URL),
   title: "Los 60 de Walfre",
   description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
   robots: {
@@ -40,7 +51,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Los 60 de Walfre",
     description: "Te invitamos a celebrar los 60 años de Walfre Torres Antolín · 30 de diciembre · Chacaltianguis, Veracruz.",
-    url: "https://mis60walfretorres.com",
+    url: "/",
     siteName: "Los 60 de Walfre",
     locale: "es_MX",
     type: "website",
